@@ -2,24 +2,24 @@ import axios from "axios";
 import type { Movie } from "../types/movie";
 
 interface MoviesHttpResponse {
-    results: Movie[]
-}
-
-interface fetchMoviesParams {
-    query: string;
+    results: Movie[],
+    total_pages: number
 }
 
 const MY_API = import.meta.env.VITE_TMDB_TOKEN;
 
-const fetchMovies = async ({ query }: fetchMoviesParams) => {
+const fetchMovies = async (query: string, page:number): Promise<MoviesHttpResponse> => {
     const response = await axios.get<MoviesHttpResponse>('https://api.themoviedb.org/3/search/movie',
         {
-            params: { query },
+            params: {
+                query,
+                page,
+             },
             headers: {
                 Authorization: `Bearer ${MY_API}`,
             }
         });
-    return response.data.results
+    return response.data;
 };
 
 export default fetchMovies;
