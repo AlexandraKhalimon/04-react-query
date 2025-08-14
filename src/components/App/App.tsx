@@ -16,7 +16,7 @@ export default function App() {
   const [searchMovie, setSearchMovie] = useState<string>("");
   const [isOpenModal, setIsOpenModal] = useState(false);
   const [selectedMovie, setSelectedMovie] = useState<Movie | null>(null);
-  const [currentPage, setCurrentPage] = useState(1)
+  const [currentPage, setCurrentPage] = useState(1);
 
 
   const { data, isLoading, isError, isSuccess } = useQuery({
@@ -28,6 +28,7 @@ export default function App() {
 
   const onSubmit = (query: string) => {
     setMovies([]);
+    setCurrentPage(1);
     setSearchMovie(query);
   };
   
